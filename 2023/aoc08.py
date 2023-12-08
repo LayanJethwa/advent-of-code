@@ -27,22 +27,35 @@ print(a)
 
 
 
-c = 0
-a = 0
+def gcd(a,b): 
+  if a == 0: 
+      return b 
+  return gcd(b % a, a) 
+  
+def lcm(a,b): 
+  return (a // gcd(a,b))* b 
+  
+a = []
 na = []
 for n in ns:
   if n[-1] == 'A':
     na.append(n)
-while ([n[-1] for n in na]).count('Z') != len(na):
-  ci = i[0][c]
-  if ci == 'L':
-    na = [ns[n][0] for n in na]
-  else:
-    na = [ns[n][1] for n in na]
-  if c == len(i[0])-1:
-    c = 0
-  else:
-    c += 1
-  a += 1
-  print(c,ci,na)
-print(a)
+for n in na:
+  c = 0
+  ac = 0
+  while n[-1] != 'Z':
+    ci = i[0][c]
+    if ci == 'L':
+      n = ns[n][0]
+    else:
+      n = ns[n][1]
+    if c == len(i[0])-1:
+      c = 0
+    else:
+      c += 1
+    ac += 1
+  a.append(ac)
+for i in range(len(a)-1):
+  a[0] =lcm(a[0],a[1])
+  a.remove(a[1])
+print(a[0])
