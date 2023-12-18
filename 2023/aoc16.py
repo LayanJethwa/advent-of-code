@@ -42,17 +42,25 @@ def nd(cp,cd):
     else:
         return cd
 
+cp = sp
+cd = 2
 cps = [(cp,cd)]
 lp = []
-for i in range(1000):
+lds = [[[] for c in range(len(ll[0]))] for l in range(len(ll))]
+while cps:
     cps = list(set(cps))
     lp = list(set(lp))
+    r = []
     for p in range(len(cps)):
-        if not (np(cps[p][0],cps[p][1])[0] < 0 or np(cps[p][0],cps[p][1])[0] >= len(ll) or np(cps[p][0],cps[p][1])[1] < 0 or np(cps[p][0],cps[p][1])[1] >= len(ll[0])):
-            cps[p] = (np(cps[p][0],cps[p][1]),cps[p][1])
+        nep = np(cps[p][0],cps[p][1])
+        if (nep[0] < 0 or nep[0] >= len(ll) or nep[1] < 0 or nep[1] >= len(ll[0]) or cps[p][1] in lds[nep[0]][nep[1]]):
+            r.append(cps[p])
+        else:
+            cps[p] = (nep,cps[p][1])
             cp = cps[p][0]
             cd = cps[p][1]
-            lp.append(cps[p][0])
+            lds[nep[0]][nep[1]].append(cd)
+            lp.append(cp)
             if ll[cp[0]][cp[1]] == "|":
                 if cd == 0 or cd == 2:
                     cps[p] = (cps[p][0],1)
@@ -63,9 +71,9 @@ for i in range(1000):
                     cps.append((cp,2))
             else:
                 cps[p] = (cps[p][0],nd(cp,cd))
+    for i in r:
+        cps.remove(i)
 print(len(set(lp)))
-
-
 
 
 
@@ -84,15 +92,21 @@ for sp in range(len(sps)):
     print(sp,len(sps))
     cps = [sps[sp]]
     lp = []
-    for i in range(1000):
+    lds = [[[] for c in range(len(ll[0]))] for l in range(len(ll))]
+    while cps:
         cps = list(set(cps))
         lp = list(set(lp))
+        r = []
         for p in range(len(cps)):
-            if not (np(cps[p][0],cps[p][1])[0] < 0 or np(cps[p][0],cps[p][1])[0] >= len(ll) or np(cps[p][0],cps[p][1])[1] < 0 or np(cps[p][0],cps[p][1])[1] >= len(ll[0])):
-                cps[p] = (np(cps[p][0],cps[p][1]),cps[p][1])
+            nep = np(cps[p][0],cps[p][1])
+            if (nep[0] < 0 or nep[0] >= len(ll) or nep[1] < 0 or nep[1] >= len(ll[0]) or cps[p][1] in lds[nep[0]][nep[1]]):
+                r.append(cps[p])
+            else:
+                cps[p] = (nep,cps[p][1])
                 cp = cps[p][0]
                 cd = cps[p][1]
-                lp.append(cps[p][0])
+                lds[nep[0]][nep[1]].append(cd)
+                lp.append(cp)
                 if ll[cp[0]][cp[1]] == "|":
                     if cd == 0 or cd == 2:
                         cps[p] = (cps[p][0],1)
@@ -103,5 +117,8 @@ for sp in range(len(sps)):
                         cps.append((cp,2))
                 else:
                     cps[p] = (cps[p][0],nd(cp,cd))
+        for i in r:
+            cps.remove(i)
     lpn.append(len(set(lp)))
 print(max(lpn))
+
