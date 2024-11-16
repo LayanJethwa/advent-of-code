@@ -9,7 +9,7 @@ ol = l.copy()
 l[1] = 12
 l[2] = 2
 
-print(intcode.run(l)[0])
+print(intcode.run(l)[0][0])
 
 
 
@@ -20,5 +20,5 @@ for n in range(100):
         l = ol.copy()
         l[1] = n
         l[2] = v
-        if intcode.run(l)[0] == 19690720:
+        if intcode.run(l)[0][0] == 19690720:
             print((100*n)+v)

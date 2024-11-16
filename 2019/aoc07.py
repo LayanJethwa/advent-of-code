@@ -37,7 +37,10 @@ for p in list(itertools.permutations([5,6,7,8,9])):
             if len(amps[i%5]) < 4:
                 r = False
         po = o
-        o = amps[i%5][-1]
+        if len(amps[i%5])>=3:
+            o = amps[i%5][3]
+        else:
+            o = amps[i%5][-1]
         i += 1
     os += po
 

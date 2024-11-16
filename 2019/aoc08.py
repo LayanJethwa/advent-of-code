@@ -28,4 +28,4 @@ for i in range(len(l)//a):
             la[i] = c[i]
 
 for i in range(d[1]):
-    print((''.join(list(la.values()))).replace('0','.')[i*d[0]:(i+1)*d[0]])
+    print((''.join(list(la.values()))).replace('0','█').replace('1',' ')[i*d[0]:(i+1)*d[0]])
